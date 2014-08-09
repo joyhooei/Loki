@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TPopadsMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TPopads">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="url" property="url" jdbcType="VARCHAR"/>
+		<result column="adwidth" property="adwidth" jdbcType="INTEGER"/>
+		<result column="adhigh" property="adhigh" jdbcType="INTEGER"/>
+		<result column="displayorder" property="displayorder" jdbcType="INTEGER"/>
+		<result column="displaytime" property="displaytime" jdbcType="INTEGER"/>
+		<result column="starttime" property="starttime" jdbcType="INTEGER"/>
+		<result column="nextstarttime" property="nextstarttime" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="TINYINT"/>
+		<result column="createtime" property="createtime" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="PopadsResultMap" type="com.sltunion.cloudy.persistent.model.TPopads">
+		<collection property="popadschannelList" ofType="com.sltunion.cloudy.persistent.model.TPopadschannel">
+			<id column="popadsid" property="popadsid" jdbcType="BIGINT"/>
+			<id column="channelid" property="channelid" jdbcType="BIGINT"/>
+		</collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.id,a.name,a.url,a.adwidth,a.adhigh,a.displayorder,a.displaytime,a.starttime,a.nextstarttime,a.status,a.createtime
+	</sql>
+	
+	<select id="selectByPull" resultType="java.util.ArrayList" resultMap="PopadsResultMap" parameterType="Map">
+		SELECT 
+		<include refid="Base_Column_List" />,b.popadsid,b.channelid
+		FROM t_popads a,t_popadschannel b 
+		WHERE a.id=b.popadsid AND b.channelid=#{channelid,jdbcType=BIGINT}
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null and name != ''">
+			AND a.name=#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="url != null">
+			AND a.url=#{url,jdbcType=VARCHAR}
+		</if>
+		<if test="adwidth != null">
+			AND a.adwidth=#{adwidth,jdbcType=INTEGER}
+		</if>
+		<if test="adhigh != null">
+			AND a.adhigh=#{adhigh,jdbcType=INTEGER}
+		</if>
+		<if test="displayorder != null">
+			AND a.displayorder=#{displayorder,jdbcType=INTEGER}
+		</if>
+		<if test="displaytime != null">
+			AND a.displaytime=#{displaytime,jdbcType=INTEGER}
+		</if>
+		<if test="starttime != null">
+			AND a.starttime=#{starttime,jdbcType=INTEGER}
+		</if>
+		<if test="nextstarttime != null">
+			AND a.nextstarttime=#{nextstarttime,jdbcType=INTEGER}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TPopads">
+		INSERT INTO t_popads
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="adwidth != null">
+				adwidth,
+			</if>
+			<if test="adhigh != null">
+				adhigh,
+			</if>
+			<if test="displayorder != null">
+				displayorder,
+			</if>
+			<if test="displaytime != null">
+				displaytime,
+			</if>
+			<if test="starttime != null">
+				starttime,
+			</if>
+			<if test="nextstarttime != null">
+				nextstarttime,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="adwidth != null">
+				#{adwidth,jdbcType=INTEGER},
+			</if>
+			<if test="adhigh != null">
+				#{adhigh,jdbcType=INTEGER},
+			</if>
+			<if test="displayorder != null">
+				#{displayorder,jdbcType=INTEGER},
+			</if>
+			<if test="displaytime != null">
+				#{displaytime,jdbcType=INTEGER},
+			</if>
+			<if test="starttime != null">
+				#{starttime,jdbcType=INTEGER},
+			</if>
+			<if test="nextstarttime != null">
+				#{nextstarttime,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TPopads">
+		UPDATE t_popads a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="name != null">
+				a.name=#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				a.url=#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="adwidth != null">
+				a.adwidth=#{adwidth,jdbcType=INTEGER},
+			</if>
+			<if test="adhigh != null">
+				a.adhigh=#{adhigh,jdbcType=INTEGER},
+			</if>
+			<if test="displayorder != null">
+				a.displayorder=#{displayorder,jdbcType=INTEGER},
+			</if>
+			<if test="displaytime != null">
+				a.displaytime=#{displaytime,jdbcType=INTEGER},
+			</if>
+			<if test="starttime != null">
+				a.starttime=#{starttime,jdbcType=INTEGER},
+			</if>
+			<if test="nextstarttime != null">
+				a.nextstarttime=#{nextstarttime,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				a.status=#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createtime != null">
+				a.createtime=#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TPopads">
+		DELETE FROM t_popads 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TPopads">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_popads a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_popads a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_popads a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="PopadsResultMap">
+		SELECT c.*,b.popadsid,b.channelid FROM(
+			SELECT 
+			<include refid="Base_Column_List" />
+			FROM t_popads a 
+			WHERE 1=1
+			<if test="id != null">
+				AND a.id=#{id,jdbcType=BIGINT}
+			</if>
+			<if test="name != null and name != ''">
+				AND INSTR(a.name,#{name,jdbcType=VARCHAR})
+			</if>
+			<if test="url != null">
+				AND a.url=#{url,jdbcType=VARCHAR}
+			</if>
+			<if test="adwidth != null">
+				AND a.adwidth=#{adwidth,jdbcType=INTEGER}
+			</if>
+			<if test="adhigh != null">
+				AND a.adhigh=#{adhigh,jdbcType=INTEGER}
+			</if>
+			<if test="displayorder != null">
+				AND a.displayorder=#{displayorder,jdbcType=INTEGER}
+			</if>
+			<if test="displaytime != null">
+				AND a.displaytime=#{displaytime,jdbcType=INTEGER}
+			</if>
+			<if test="starttime != null">
+				AND a.starttime=#{starttime,jdbcType=INTEGER}
+			</if>
+			<if test="nextstarttime != null">
+				AND a.nextstarttime=#{nextstarttime,jdbcType=INTEGER}
+			</if>
+			<if test="status != null">
+				AND a.status=#{status,jdbcType=TINYINT}
+			</if>
+			<if test="createtime != null">
+				AND a.createtime=#{createtime,jdbcType=VARCHAR}
+			</if>
+			<if test="group != null and group != ''">
+				GROUP BY ${group}
+			</if>
+			<if test="order != null and order != ''">
+				ORDER BY ${order}
+			</if>
+			<if test="startIndex != null and pageSize != null">
+				LIMIT #{startIndex},#{pageSize}
+			</if>
+		) c LEFT JOIN t_popadschannel b ON b.popadsid=c.id
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_popads a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null and name != ''">
+			AND INSTR(a.name,#{name,jdbcType=VARCHAR})
+		</if>
+		<if test="url != null">
+			AND a.url=#{url,jdbcType=VARCHAR}
+		</if>
+		<if test="adwidth != null">
+			AND a.adwidth=#{adwidth,jdbcType=INTEGER}
+		</if>
+		<if test="adhigh != null">
+			AND a.adhigh=#{adhigh,jdbcType=INTEGER}
+		</if>
+		<if test="displayorder != null">
+			AND a.displayorder=#{displayorder,jdbcType=INTEGER}
+		</if>
+		<if test="displaytime != null">
+			AND a.displaytime=#{displaytime,jdbcType=INTEGER}
+		</if>
+		<if test="starttime != null">
+			AND a.starttime=#{starttime,jdbcType=INTEGER}
+		</if>
+		<if test="nextstarttime != null">
+			AND a.nextstarttime=#{nextstarttime,jdbcType=INTEGER}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT '合计:' totalname,count(1) count
+		FROM t_popads a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null and name != ''">
+			AND INSTR(a.name,#{name,jdbcType=VARCHAR})
+		</if>
+		<if test="url != null">
+			AND a.url=#{url,jdbcType=VARCHAR}
+		</if>
+		<if test="adwidth != null">
+			AND a.adwidth=#{adwidth,jdbcType=INTEGER}
+		</if>
+		<if test="adhigh != null">
+			AND a.adhigh=#{adhigh,jdbcType=INTEGER}
+		</if>
+		<if test="displayorder != null">
+			AND a.displayorder=#{displayorder,jdbcType=INTEGER}
+		</if>
+		<if test="displaytime != null">
+			AND a.displaytime=#{displaytime,jdbcType=INTEGER}
+		</if>
+		<if test="starttime != null">
+			AND a.starttime=#{starttime,jdbcType=INTEGER}
+		</if>
+		<if test="nextstarttime != null">
+			AND a.nextstarttime=#{nextstarttime,jdbcType=INTEGER}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

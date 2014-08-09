@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TDriverMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TDriver">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="version" property="version" jdbcType="INTEGER"/>
+		<result column="updatehost" property="updatehost" jdbcType="VARCHAR"/>
+		<result column="updateip" property="updateip" jdbcType="VARCHAR"/>
+		<result column="updateip2" property="updateip2" jdbcType="VARCHAR"/>
+		<result column="updateport" property="updateport" jdbcType="INTEGER"/>
+		<result column="sysurl" property="sysurl" jdbcType="VARCHAR"/>
+		<result column="dllurl" property="dllurl" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="TINYINT"/>
+		<result column="createtime" property="createtime" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="DriverResultMap" type="com.sltunion.cloudy.persistent.model.TDriver">
+		<collection property="driverchannelList" ofType="com.sltunion.cloudy.persistent.model.TDriverchannel">
+			<id column="driverid" property="driverid" jdbcType="BIGINT"/>
+			<id column="channelid" property="channelid" jdbcType="BIGINT"/>
+		</collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.id,a.version,a.updatehost,a.updateip,a.updateip2,a.updateport,a.sysurl,a.dllurl,a.status,a.createtime
+	</sql>
+	
+	<select id="selectByPull" resultMap="DriverResultMap" parameterType="Map">
+		SELECT 
+		<include refid="Base_Column_List" />,b.driverid,b.channelid
+		FROM t_driver a,t_driverchannel b 
+		WHERE a.id=b.driverid AND b.channelid=#{channelid,jdbcType=BIGINT}
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="version != null">
+			AND a.version=#{version,jdbcType=INTEGER}
+		</if>
+		<if test="updatehost != null">
+			AND a.updatehost=#{updatehost,jdbcType=VARCHAR}
+		</if>
+		<if test="updateip != null">
+			AND a.updateip=#{updateip,jdbcType=VARCHAR}
+		</if>
+		<if test="updateip2 != null">
+			AND a.updateip2=#{updateip2,jdbcType=VARCHAR}
+		</if>
+		<if test="updateport != null">
+			AND a.updateport=#{updateport,jdbcType=INTEGER}
+		</if>
+		<if test="sysurl != null">
+			AND a.sysurl=#{sysurl,jdbcType=VARCHAR}
+		</if>
+		<if test="dllurl != null">
+			AND a.dllurl=#{dllurl,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TDriver">
+		INSERT INTO t_driver
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="updatehost != null">
+				updatehost,
+			</if>
+			<if test="updateip != null">
+				updateip,
+			</if>
+			<if test="updateip2 != null">
+				updateip2,
+			</if>
+			<if test="updateport != null">
+				updateport,
+			</if>
+			<if test="sysurl != null">
+				sysurl,
+			</if>
+			<if test="dllurl != null">
+				dllurl,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=INTEGER},
+			</if>
+			<if test="updatehost != null">
+				#{updatehost,jdbcType=VARCHAR},
+			</if>
+			<if test="updateip != null">
+				#{updateip,jdbcType=VARCHAR},
+			</if>
+			<if test="updateip2 != null">
+				#{updateip2,jdbcType=VARCHAR},
+			</if>
+			<if test="updateport != null">
+				#{updateport,jdbcType=INTEGER},
+			</if>
+			<if test="sysurl != null">
+				#{sysurl,jdbcType=VARCHAR},
+			</if>
+			<if test="dllurl != null">
+				#{dllurl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TDriver">
+		UPDATE t_driver a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="version != null">
+				a.version=#{version,jdbcType=INTEGER},
+			</if>
+			<if test="updatehost != null">
+				a.updatehost=#{updatehost,jdbcType=VARCHAR},
+			</if>
+			<if test="updateip != null">
+				a.updateip=#{updateip,jdbcType=VARCHAR},
+			</if>
+			<if test="updateip2 != null">
+				a.updateip2=#{updateip2,jdbcType=VARCHAR},
+			</if>
+			<if test="updateport != null">
+				a.updateport=#{updateport,jdbcType=INTEGER},
+			</if>
+			<if test="sysurl != null">
+				a.sysurl=#{sysurl,jdbcType=VARCHAR},
+			</if>
+			<if test="dllurl != null">
+				a.dllurl=#{dllurl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				a.status=#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createtime != null">
+				a.createtime=#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TDriver">
+		DELETE FROM t_driver 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TDriver">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_driver a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_driver a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_driver a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="DriverResultMap">
+		SELECT c.*,b.driverid,b.channelid FROM(
+			SELECT 
+			<include refid="Base_Column_List" />
+			FROM t_driver a 
+			WHERE 1=1
+			<if test="id != null">
+				AND a.id=#{id,jdbcType=BIGINT}
+			</if>
+			<if test="version != null">
+				AND a.version=#{version,jdbcType=INTEGER}
+			</if>
+			<if test="updatehost != null">
+				AND a.updatehost=#{updatehost,jdbcType=VARCHAR}
+			</if>
+			<if test="updateip != null">
+				AND a.updateip=#{updateip,jdbcType=VARCHAR}
+			</if>
+			<if test="updateip2 != null">
+				AND a.updateip2=#{updateip2,jdbcType=VARCHAR}
+			</if>
+			<if test="updateport != null">
+				AND a.updateport=#{updateport,jdbcType=INTEGER}
+			</if>
+			<if test="sysurl != null">
+				AND a.sysurl=#{sysurl,jdbcType=VARCHAR}
+			</if>
+			<if test="dllurl != null">
+				AND a.dllurl=#{dllurl,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				AND a.status=#{status,jdbcType=TINYINT}
+			</if>
+			<if test="createtime != null">
+				AND a.createtime=#{createtime,jdbcType=VARCHAR}
+			</if>
+			<if test="group != null and group != ''">
+				GROUP BY ${group}
+			</if>
+			<if test="order != null and order != ''">
+				ORDER BY ${order}
+			</if>
+			<if test="startIndex != null and pageSize != null">
+				LIMIT #{startIndex},#{pageSize}
+			</if>
+		) c LEFT JOIN t_driverchannel b ON b.driverid=c.id
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_driver a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="version != null">
+			AND a.version=#{version,jdbcType=INTEGER}
+		</if>
+		<if test="updatehost != null">
+			AND a.updatehost=#{updatehost,jdbcType=VARCHAR}
+		</if>
+		<if test="updateip != null">
+			AND a.updateip=#{updateip,jdbcType=VARCHAR}
+		</if>
+		<if test="updateip2 != null">
+			AND a.updateip2=#{updateip2,jdbcType=VARCHAR}
+		</if>
+		<if test="updateport != null">
+			AND a.updateport=#{updateport,jdbcType=INTEGER}
+		</if>
+		<if test="sysurl != null">
+			AND a.sysurl=#{sysurl,jdbcType=VARCHAR}
+		</if>
+		<if test="dllurl != null">
+			AND a.dllurl=#{dllurl,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT '合计:' totalname,count(1) count
+		FROM t_driver a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="version != null">
+			AND a.version=#{version,jdbcType=INTEGER}
+		</if>
+		<if test="updatehost != null">
+			AND a.updatehost=#{updatehost,jdbcType=VARCHAR}
+		</if>
+		<if test="updateip != null">
+			AND a.updateip=#{updateip,jdbcType=VARCHAR}
+		</if>
+		<if test="updateip2 != null">
+			AND a.updateip2=#{updateip2,jdbcType=VARCHAR}
+		</if>
+		<if test="updateport != null">
+			AND a.updateport=#{updateport,jdbcType=INTEGER}
+		</if>
+		<if test="sysurl != null">
+			AND a.sysurl=#{sysurl,jdbcType=VARCHAR}
+		</if>
+		<if test="dllurl != null">
+			AND a.dllurl=#{dllurl,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

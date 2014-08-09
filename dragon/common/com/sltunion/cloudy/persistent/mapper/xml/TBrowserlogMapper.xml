@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TBrowserlogMapper">
+	<resultMap id="BaseResultMap"
+		type="com.sltunion.cloudy.persistent.model.TBrowserlog">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="flag" property="flag" jdbcType="VARCHAR" />
+		<result column="channelid" property="channelid" jdbcType="BIGINT" />
+		<result column="homepageid" property="homepageid" jdbcType="BIGINT" />
+		<result column="times" property="times" jdbcType="INTEGER" />
+		<result column="rate" property="rate" jdbcType="FLOAT" />
+		<result column="createdate" property="createdate" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.id,a.name,a.flag,a.channelid,a.homepageid,a.times,a.rate,a.createdate
+	</sql>
+
+	<update id="updateByStatisticsSelective" parameterType="com.sltunion.cloudy.persistent.model.TBrowserlog">
+		UPDATE t_browserlog a
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="times != null and times != 0">
+				a.times=a.times+#{times,jdbcType=INTEGER},
+			</if>
+			<if test="rate != null">
+				a.rate=#{rate,jdbcType=FLOAT},
+			</if>
+		</trim>
+		WHERE a.name=#{name,jdbcType=VARCHAR} AND
+		a.flag=#{flag,jdbcType=VARCHAR} AND
+		a.channelid=#{channelid,jdbcType=BIGINT} AND
+		a.homepageid=#{homepageid,jdbcType=BIGINT} AND
+		a.createdate=#{createdate,jdbcType=VARCHAR}
+	</update>
+
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TBrowserlog">
+		INSERT INTO t_browserlog
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="channelid != null">
+				channelid,
+			</if>
+			<if test="homepageid != null">
+				homepageid,
+			</if>
+			<if test="times != null">
+				times,
+			</if>
+			<if test="rate != null">
+				rate,
+			</if>
+			<if test="createdate != null">
+				createdate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="channelid != null">
+				#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="homepageid != null">
+				#{homepageid,jdbcType=BIGINT},
+			</if>
+			<if test="times != null">
+				#{times,jdbcType=INTEGER},
+			</if>
+			<if test="rate != null">
+				#{rate,jdbcType=FLOAT},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TBrowserlog">
+		UPDATE t_browserlog a
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="name != null">
+				a.name=#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				a.flag=#{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="homepageid != null">
+				a.homepageid=#{homepageid,jdbcType=BIGINT},
+			</if>
+			<if test="times != null">
+				a.times=#{times,jdbcType=INTEGER},
+			</if>
+			<if test="rate != null">
+				a.rate=#{rate,jdbcType=FLOAT},
+			</if>
+			<if test="createdate != null">
+				a.createdate=#{createdate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TBrowserlog">
+		DELETE FROM t_browserlog
+		WHERE
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="com.sltunion.cloudy.persistent.model.TBrowserlog">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_browserlog a
+		WHERE
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_browserlog a
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM
+		t_browserlog a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_browserlog a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null">
+			AND a.name=#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="flag != null">
+			AND a.flag=#{flag,jdbcType=VARCHAR}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="homepageid != null">
+			AND a.homepageid=#{homepageid,jdbcType=BIGINT}
+		</if>
+		<if test="times != null">
+			AND a.times=#{times,jdbcType=INTEGER}
+		</if>
+		<if test="rate != null">
+			AND a.rate=#{rate,jdbcType=FLOAT}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+		<if test="group != null and group != ''">
+			GROUP BY ${group}
+		</if>
+		<if test="order != null and order != ''">
+			ORDER BY ${order}
+		</if>
+		<if test="startIndex != null and pageSize != null">
+			LIMIT #{startIndex},#{pageSize}
+		</if>
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_browserlog a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null">
+			AND a.name=#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="flag != null">
+			AND a.flag=#{flag,jdbcType=VARCHAR}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="homepageid != null">
+			AND a.homepageid=#{homepageid,jdbcType=BIGINT}
+		</if>
+		<if test="times != null">
+			AND a.times=#{times,jdbcType=INTEGER}
+		</if>
+		<if test="rate != null">
+			AND a.rate=#{rate,jdbcType=FLOAT}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT '合计:' totalname,IFNULL(SUM(a.times),0) times
+		FROM t_browserlog a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null">
+			AND a.name=#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="flag != null">
+			AND a.flag=#{flag,jdbcType=VARCHAR}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="homepageid != null">
+			AND a.homepageid=#{homepageid,jdbcType=BIGINT}
+		</if>
+		<if test="times != null">
+			AND a.times=#{times,jdbcType=INTEGER}
+		</if>
+		<if test="rate != null">
+			AND a.rate=#{rate,jdbcType=FLOAT}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="getChartResultList" resultType="java.util.Map" parameterType="Map">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_browserlog a
+		WHERE a.createdate BETWEEN #{startdate,jdbcType=VARCHAR} AND #{enddate,jdbcType=VARCHAR}
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="group != null and group != ''">
+			GROUP BY ${group}
+		</if>
+		<if test="order != null and order != ''">
+			ORDER BY ${order}
+		</if>
+		<if test="startIndex != null and pageSize != null">
+			LIMIT #{startIndex},#{pageSize}
+		</if>
+	</select>
+</mapper>

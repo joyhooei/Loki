@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TRoleMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TRole">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="rolename" property="rolename" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="manage" property="manage" jdbcType="TINYINT"/>
+	</resultMap>
+	
+	<resultMap extends="BaseResultMap" id="RoleResultMap" type="com.sltunion.cloudy.persistent.model.TRole">
+		<collection property="rolemoduleList" ofType="com.sltunion.cloudy.persistent.model.TRolemodule">
+			<id column="roleid" property="roleid" jdbcType="BIGINT"/>
+			<id column="moduleid" property="moduleid" jdbcType="BIGINT"/>
+		</collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.id,a.rolename,a.remark,a.manage
+	</sql>
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TRole">
+		INSERT INTO t_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="rolename != null">
+				rolename,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="manage != null">
+				manage,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="rolename != null">
+				#{rolename,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="manage != null">
+				#{manage,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TRole">
+		UPDATE t_role a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="rolename != null">
+				a.rolename=#{rolename,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				a.remark=#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="manage != null">
+				a.manage=#{manage,jdbcType=TINYINT},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TRole">
+		DELETE FROM t_role 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TRole">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_role a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_role a
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_role a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="RoleResultMap">
+		SELECT c.*,b.roleid,b.moduleid FROM (
+			SELECT 
+			<include refid="Base_Column_List" />
+			FROM t_role a
+			WHERE 1=1
+			<if test="id != null">
+				AND a.id=#{id,jdbcType=BIGINT}
+			</if>
+			<if test="rolename != null and rolename != ''">
+				AND a.rolename=#{rolename,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null">
+				AND a.remark=#{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="manage != null">
+				AND a.manage=#{manage,jdbcType=TINYINT}
+			</if>
+			<if test="group != null and group != ''">
+				GROUP BY ${group}
+			</if>
+			<if test="order != null and order != ''">
+				ORDER BY ${order}
+			</if>
+			<if test="startIndex != null and pageSize != null">
+				LIMIT #{startIndex},#{pageSize}
+			</if>
+		) c LEFT JOIN t_rolemodule b ON b.roleid=c.id
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_role a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="rolename != null and rolename != ''">
+			AND a.rolename=#{rolename,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null">
+			AND a.remark=#{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="manage != null">
+			AND a.manage=#{manage,jdbcType=TINYINT}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT '合计:' totalname,count(1) count
+		FROM t_role a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="rolename != null and rolename != ''">
+			AND a.rolename=#{rolename,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null">
+			AND a.remark=#{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="manage != null">
+			AND a.manage=#{manage,jdbcType=TINYINT}
+		</if>
+	</select>
+</mapper>

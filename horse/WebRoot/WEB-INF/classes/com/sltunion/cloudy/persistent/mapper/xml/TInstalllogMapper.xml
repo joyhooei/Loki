@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TInstalllogMapper">
+	<resultMap id="BaseResultMap"
+		type="com.sltunion.cloudy.persistent.model.TInstalllog">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="channelid" property="channelid" jdbcType="BIGINT" />
+		<result column="disknum" property="disknum" jdbcType="VARCHAR" />
+		<result column="mac" property="mac" jdbcType="VARCHAR" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
+		<result column="useragent" property="useragent" jdbcType="VARCHAR" />
+		<result column="hour" property="hour" jdbcType="INTEGER" />
+		<result column="createdate" property="createdate" jdbcType="VARCHAR" />
+		<result column="createtime" property="createtime" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.id,a.channelid,a.disknum,a.mac,a.ip,a.useragent,a.hour,a.createdate,a.createtime
+	</sql>
+
+	<select id="selectByStatistics" resultType="java.util.ArrayList"
+		resultMap="BaseResultMap" parameterType="Map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_installlog a WHERE a.id&gt;#{id,jdbcType=BIGINT} AND
+		a.hour=#{hour,jdbcType=INTEGER} AND
+		a.createdate=#{createdate,jdbcType=VARCHAR}
+		LIMIT ${limit}
+	</select>
+
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TInstalllog">
+		INSERT INTO t_installlog
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="channelid != null">
+				channelid,
+			</if>
+			<if test="disknum != null">
+				disknum,
+			</if>
+			<if test="mac != null">
+				mac,
+			</if>
+			<if test="ip != null">
+				ip,
+			</if>
+			<if test="useragent != null">
+				useragent,
+			</if>
+			<if test="hour != null">
+				hour,
+			</if>
+			<if test="createdate != null">
+				createdate,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="channelid != null">
+				#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="disknum != null">
+				#{disknum,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null">
+				#{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="useragent != null">
+				#{useragent,jdbcType=VARCHAR},
+			</if>
+			<if test="hour != null">
+				#{hour,jdbcType=INTEGER},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TInstalllog">
+		UPDATE t_installlog a
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="disknum != null">
+				a.disknum=#{disknum,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null">
+				a.mac=#{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				a.ip=#{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="useragent != null">
+				a.useragent=#{useragent,jdbcType=VARCHAR},
+			</if>
+			<if test="hour != null">
+				a.hour=#{hour,jdbcType=INTEGER},
+			</if>
+			<if test="createdate != null">
+				a.createdate=#{createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				a.createtime=#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TInstalllog">
+		DELETE FROM t_installlog
+		WHERE
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="com.sltunion.cloudy.persistent.model.TInstalllog">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_installlog a
+		WHERE
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_installlog a
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM
+		t_installlog a 
+	</select>
+</mapper>

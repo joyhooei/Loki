@@ -1,0 +1,705 @@
+@charset "utf-8";
+
+/* CSS Document */ /****=reset***/
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,select,p,blockquote,th,td
+	{
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	font-family: arial, \5b8b\4f53, sans-serif;
+	-webkit-text-size-adjust: none;
+}
+
+a img {
+	border: 0px;
+}
+
+a {
+	blr: expression(this.onFocus =     this.blur () );
+	color: #333;
+	cursor: pointer;
+}
+
+:focus {
+	outline: none;
+}
+
+address,caption,cite,code,dfn,em,th,var {
+	font-style: normal;
+	font-weight: normal;
+}
+
+li {
+	list-style: none;
+}
+
+caption,th {
+	text-align: left;
+}
+
+q:before,q:after {
+	content: '';
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+input,button,textarea,select {
+	font-family: inherit;
+}
+
+a {
+	outline: none;
+	text-decoration: none;
+}
+
+body a:hover {
+	text-decoration: none;
+	color: #FCB812;
+}
+
+html {
+	overflow-y: scroll;
+}
+
+.arial {
+	font-family: Arial;
+}
+
+.clearfix:after {
+	content: '\20';
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+/****=resetend***/ /* for html5 */
+header,nav,aside,menu,figure,article,time,footer {
+	display: block;
+}
+
+#up {
+	width: 100%;
+	height: 71px;
+	background: #1BBFD8;
+	overflow: hidden
+}
+
+.top {
+	width: 100%;
+	min-width: 1000px;
+	_width: 1000px;
+	height: 71px;
+	/*background: url(../images/topbg.jpg) no-repeat;*/
+	margin: 0 auto;
+	overflow: hidden
+}
+
+.logo {
+	width: 327px;
+	height: 71px;
+	/*margin-top:10px;*/
+	overflow: hidden
+}
+
+.nav-menu {
+	width: 100%;
+	min-width: 1000px;
+	_width: 1000px;
+	height: 34px;
+	margin: 0 auto;
+	overflow: hidden;
+	background: url(../images/menubg2.jpg) repeat-x;
+}
+
+.nav-menuleft {
+	width: 273px;
+	line-height: 34px;
+	text-align: right;
+	float: left;
+	overflow: hidden;
+	background: url(../images/menubg.jpg) repeat-x;
+}
+
+.time {
+	width: 195px;
+	line-height: 34px;
+	text-align: right;
+	float: left;
+	overflow: hidden;
+}
+
+.nav-menumin {
+	width: 78px;
+	height: 34px;
+	float: left;
+	overflow: hidden;
+}
+
+.nav-menuright {
+	width: 72.7%;
+	min-width: 727px;
+	_width: 727px;
+	height: 34px;
+	float: left;
+	overflow: hidden;
+}
+
+.nav-menuright p {
+	line-height: 34px;
+	text-align: right;
+	margin-right: 10px;
+	letter-spacing: 5px;
+	overflow: hidden
+}
+
+.main {
+	width: 100%;
+	min-width: 1000px;
+	_width: 1000px;
+	background-repeat: repeat-y;
+	margin: 10px 0px 0px 0px;
+	overflow: hidden
+}
+
+.left {
+	width: 200px;
+	float: left;
+	overflow: hidden
+}
+
+.left-menu {
+	width: 190px;
+	background-repeat: repeat-y;
+	background: url(../images/lftbg.jpg) repeat-y;
+	float: right;
+	overflow: hidden;
+	margin-right: 5px;
+}
+
+.lft-title {
+	width: 190px;
+	height: 76px;
+	background: url(../images/left-title.jpg);
+	overflow: hidden
+}
+
+.lft-title p {
+	font-family: "宋体";
+	font-size: 14px;
+	line-height: 30px;
+	text-align: center;
+	padding-top: 15px;
+	font-weight: bold;
+	color: #FFF;
+}
+
+.lft-title p span {
+	color: #F30;
+}
+
+.lft-nr {
+	width: 168px;
+	background-repeat: repeat-y;
+	margin: 0 auto;
+	overflow: hidden
+}
+
+.menu {
+	width: 140px;
+	margin-left: 15px;
+	font-family: "宋体";
+	font-size: 13px;
+	color: #484949;
+	line-height: 30px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.menu img {
+	position: relative;
+	top: 5px;
+	margin-right: 5px;
+	overflow: hidden
+}
+
+.submenu {
+	width: 100px;
+	background-repeat: repeat-y;
+	margin-left: 40px;
+	overflow: hidden
+}
+
+.submenu ul {
+	width: 100px;
+	background-repeat: repeat-y;
+	float: left;
+	overflow: hidden
+}
+
+.submenu ul li {
+	width: 100px;
+	line-height: 30px;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #484949;
+	float: left;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.submenu ul li img {
+	width: 17px;
+	height: 16px;
+	position: relative;
+	top: 3px;
+	margin-right: 3px;
+	overflow: hidden
+}
+
+.lft-btn {
+	width: 190px;
+	height: 21px;
+	overflow: hidden
+}
+
+.right {
+	width: 80%;
+	min-width: 800px;
+	_width: 800px;
+	min-height: 615px;
+	_height: 615px;
+	background-repeat: repeat-y;
+	/*border: solid 1px #c8deeb;*/
+	float: left;
+	overflow: hidden
+}
+
+.rgt-title {
+	width: 100%;
+	height: 36px;
+	background: url(../images/rgt-titlebg.jpg) repeat-x;
+	margin: 1px;
+	overflow: hidden
+}
+
+.rgt-title p {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #FFF;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.rgt-title p span {
+	font-family: "宋体";
+	font-size: 14px;
+	padding-right: 5px;
+	font-weight: bold;
+}
+
+.contentFrame {
+	width: 100%;
+	border: 0px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.sj {
+	width: 100%;
+	background-repeat: repeat-y;
+	background: #f4feff;
+	overflow: hidden
+}
+
+.sj ul {
+	width: 93.8%;
+	background-repeat: repeat-y;
+	float: left;
+	margin: 20px 25px 20px 25px;
+	overflow: hidden
+}
+
+.sj ul li {
+	width: 31.2%;
+	min-width: 250px;
+	_width: 250px;
+	line-height: 25px;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #484949;
+	float: left;
+	overflow: hidden
+}
+
+.sj ul li span {
+	color: #F30;
+}
+
+.classify {
+	width: 93.8%;
+	min-width: 750px;
+	_width: 750px;
+	background-repeat: repeat-y;
+	margin: 0 auto;
+	overflow: hidden
+}
+
+.classify ul {
+	width: 93.8%;
+	min-width: 750px;
+	_width: 750px;
+	background-repeat: repeat-y;
+	float: left;
+	overflow: hidden
+}
+
+.classify ul li {
+	width: 93.8%;
+	min-width: 750px;
+	_width: 750px;
+	border-bottom: dashed 1px #CCC;
+	overflow: hidden
+}
+
+.classify ul li img {
+	float: left;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.classify ul li .name {
+	margin-left: 100px;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #484949;
+	line-height: 25px;
+	margin-top: 40px;
+}
+
+.classify ul li .name p span {
+	font-family: "宋体";
+	font-size: 14px;
+	font-weight: bold;
+	color: #0abfdc;
+	padding-right: 40px;
+	overflow: hidden
+}
+
+.btn {
+	display: block;
+	position: relative;
+	background-color: #76CFE1;
+	padding: 5px;
+	float: left;
+	color: #ffffff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+TABLE.position {
+	WIDTH: 100%
+}
+
+TR.position {
+	HEIGHT: 25px;
+	BACKGROUND-COLOR: #f4f7fc
+}
+
+TD.position {
+	BORDER-RIGHT: #adceff 1px solid;
+	PADDING-LEFT: 20px;
+	BORDER-BOTTOM: #adceff 1px solid
+}
+
+.listTable {
+	WIDTH: 100%;
+	BACKGROUND-COLOR: #b1ceee;
+	table-layout: fixed;
+}
+
+.listTable td {
+	line-height: 25px;
+	text-align: center;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 2px
+}
+
+.listHeaderTr th {
+	FONT-WEIGHT: bold;
+	HEIGHT: 25px;
+	BACKGROUND-COLOR: #ebf4fd;
+	TEXT-ALIGN: center;
+}
+
+.listTr {
+	HEIGHT: 25px;
+	BACKGROUND-COLOR: #fff;
+	TEXT-ALIGN: center
+}
+
+.listAlternatingTr {
+	HEIGHT: 25px;
+	BACKGROUND-COLOR: #fffdf0;
+	TEXT-ALIGN: center
+}
+
+.listFooterTr {
+	HEIGHT: 30px;
+	BACKGROUND-COLOR: #ebf4fd;
+	TEXT-ALIGN: center
+}
+
+.editTable {
+	WIDTH: 98%;
+	BACKGROUND-COLOR: #b1ceee
+}
+
+.editHeaderTr {
+	HEIGHT: 25px;
+	BACKGROUND-COLOR: #ebf4fd
+}
+
+.editHeaderTd {
+	PADDING-LEFT: 50px;
+	FONT-WEIGHT: bold
+}
+
+.editTr {
+	HEIGHT: 30px
+}
+
+.editLeftTd {
+	WIDTH: 150px;
+	BACKGROUND-COLOR: #fffdf0;
+	TEXT-ALIGN: center
+}
+
+.editRightTd {
+	PADDING-LEFT: 10px;
+	BACKGROUND-COLOR: #fff
+}
+
+.editFooterTr {
+	HEIGHT: 40px;
+	BACKGROUND-COLOR: #ebf4fd
+}
+
+.editFooterTd {
+	PADDING-LEFT: 150px
+}
+
+.searchTable {
+	WIDTH: 100%;
+	BACKGROUND-COLOR: #b1ceee
+}
+
+.searchTable tr {
+	HEIGHT: 30px
+}
+
+.searchTable tr td {
+	BACKGROUND-COLOR: #EBF4FD;
+	padding-left: 5px;
+}
+
+.search {
+	margin: 3px 0 3px 0;
+}
+
+.operator {
+	margin: 3px 0 3px 0;
+	border: 1px #b1ceee dashed;
+}
+
+.error {
+	display: block;
+	color: red;
+}
+
+.errorhide {
+	display: none;
+}
+
+.oll {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	width: 400px;
+	float: left;
+}
+
+.ollc2 {
+	height: 180px;
+	line-height: 20px;
+	margin: 0;
+	overflow: hidden;
+}
+
+.olts {
+	border: 0 none;
+	margin-left: 5px;
+	text-align: left;
+	width: 210px;
+	float: left;
+}
+
+.topleft {
+	width: 15%;
+	min-height: 615px;
+	_height: 615px;
+	float: left;
+	overflow: hidden;
+	border: solid 1px #c8deeb;
+}
+
+.topright {
+	width: 84.5%;
+	min-height: 615px;
+	_height: 615px;
+	background-repeat: repeat-y;
+	border: solid 1px #c8deeb;
+	float: right;
+	overflow: hidden
+}
+
+.topmenu {
+	width: 100%;
+	background-repeat: repeat-y;
+	margin: 0;
+	overflow: hidden
+}
+
+.topmenu ul {
+	width: 100%;
+	background-repeat: repeat-y;
+	float: left;
+	overflow: hidden
+}
+
+.topmenu ul li {
+	width: 100%;
+	line-height: 30px;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #484949;
+	float: left;
+	overflow: hidden
+}
+
+.topmenu ul li img {
+	width: 17px;
+	height: 16px;
+	position: relative;
+	top: 3px;
+	margin-right: 3px;
+	overflow: hidden
+}
+
+.backToTop {
+	display: none;
+	width: 24px;
+	line-height: 1.2;
+	padding: 5px 0;
+	background-color: #0887D8;
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
+	position: fixed;
+	_position: absolute;
+	right: 0;
+	bottom: 0;
+	_bottom: "auto";
+	cursor: pointer;
+	opacity: .6;
+	filter: Alpha(opacity = 60);
+	z-index: 1;
+}
+
+.module-left{
+	width: 230px;
+	margin: 3px 0 3px 0;
+	border: 2px #b1ceee solid;
+	table-layout: fixed;
+}
+
+.module-menu {
+	width: 210px;
+	margin-left: 15px;
+	font-family: "宋体";
+	font-size: 13px;
+	color: #484949;
+	line-height: 30px;
+	overflow: hidden
+}
+
+.module-menu img {
+	position: relative;
+	top: 5px;
+	margin-right: 5px;
+	overflow: hidden
+}
+
+.module-submenu {
+	width: 210px;
+	background-repeat: repeat-y;
+	margin-left: 40px;
+	line-height: 25px;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #484949;
+	overflow: hidden;
+}
+
+.module-submenu img {
+	width: 17px;
+	height: 16px;
+	position: relative;
+	top: 3px;
+	margin-right: 3px;
+	overflow: hidden
+}
+
+.editable{
+	color: #ff0000;
+}
+
+.select-menu {
+	margin-left: 5px;
+	font-family: "宋体";
+	font-size: 13px;
+	text-align:left;
+	color: #484949;
+	line-height: 30px;
+	overflow: hidden;
+}
+
+.select-submenu {
+	width: 100px;
+	margin-left: 20px;
+	line-height: 25px;
+	font-family: "宋体";
+	font-size: 12px;
+	text-align:left;
+	color: #484949;
+	float: left;
+	overflow: hidden;
+}

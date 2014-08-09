@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TConfiginiMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TConfigini">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="logictype" property="logictype" jdbcType="TINYINT"/>
+		<result column="content" property="content" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="TINYINT"/>
+		<result column="createtime" property="createtime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap extends="BaseResultMap" id="ConfiginiResultMap" type="com.sltunion.cloudy.persistent.model.TConfigini">
+		<collection property="configchannelList" ofType="com.sltunion.cloudy.persistent.model.TConfigchannel">
+			<id column="configid" property="configid" jdbcType="BIGINT"/>
+			<id column="channelid" property="channelid" jdbcType="BIGINT"/>
+		</collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.id,a.name,a.logictype,a.content,a.status,a.createtime
+	</sql>
+	
+	<select id="selectByPull" resultMap="ConfiginiResultMap" parameterType="Map">
+		SELECT 
+		<include refid="Base_Column_List" />,b.configid,b.channelid
+		FROM t_configini a,t_configchannel b 
+		WHERE a.id=b.configid AND b.channelid=#{channelid,jdbcType=BIGINT}
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null">
+			AND a.name=#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="logictype != null">
+			AND a.logictype=#{logictype,jdbcType=TINYINT}
+		</if>
+		<if test="content != null">
+			AND a.content=#{content,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TConfigini">
+		INSERT INTO t_configini
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="logictype != null">
+				logictype,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="logictype != null">
+				#{logictype,jdbcType=TINYINT},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TConfigini">
+		UPDATE t_configini a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="name != null">
+				a.name=#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="logictype != null">
+				a.logictype=#{logictype,jdbcType=TINYINT},
+			</if>
+			<if test="content != null">
+				a.content=#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				a.status=#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createtime != null">
+				a.createtime=#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TConfigini">
+		DELETE FROM t_configini 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TConfigini">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_configini a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_configini a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_configini a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="ConfiginiResultMap">
+		SELECT c.*,b.configid,b.channelid FROM(
+			SELECT 
+			<include refid="Base_Column_List" />
+			FROM t_configini a 
+			WHERE 1=1
+			<if test="id != null">
+				AND a.id=#{id,jdbcType=BIGINT}
+			</if>
+			<if test="name != null and name != ''">
+				AND INSTR(a.name,#{name,jdbcType=VARCHAR})
+			</if>
+			<if test="logictype != null">
+				AND a.logictype=#{logictype,jdbcType=TINYINT}
+			</if>
+			<if test="content != null">
+				AND a.content=#{content,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				AND a.status=#{status,jdbcType=TINYINT}
+			</if>
+			<if test="createtime != null">
+				AND a.createtime=#{createtime,jdbcType=VARCHAR}
+			</if>
+			<if test="group != null and group != ''">
+				GROUP BY ${group}
+			</if>
+			<if test="order != null and order != ''">
+				ORDER BY ${order}
+			</if>
+			<if test="startIndex != null and pageSize != null">
+				LIMIT #{startIndex},#{pageSize}
+			</if>
+		) c LEFT JOIN t_configchannel b ON b.configid=c.id
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_configini a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null and name != ''">
+			AND INSTR(a.name,#{name,jdbcType=VARCHAR})
+		</if>
+		<if test="logictype != null">
+			AND a.logictype=#{logictype,jdbcType=TINYINT}
+		</if>
+		<if test="content != null">
+			AND a.content=#{content,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT '合计:' totalname,count(1) count
+		FROM t_configini a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="name != null and name != ''">
+			AND INSTR(a.name,#{name,jdbcType=VARCHAR})
+		</if>
+		<if test="logictype != null">
+			AND a.logictype=#{logictype,jdbcType=TINYINT}
+		</if>
+		<if test="content != null">
+			AND a.content=#{content,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createtime != null">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

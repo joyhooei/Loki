@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="horse"
+  id="myeclipse.1387527796391"
+  context-root="/horse"
+  j2ee-spec="5.0"
+  archive="horse.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

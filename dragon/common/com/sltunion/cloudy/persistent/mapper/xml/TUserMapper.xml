@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TUserMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TUser">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="username" property="username" jdbcType="VARCHAR"/>
+		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<result column="enable" property="enable" jdbcType="TINYINT"/>
+		<result column="usertype" property="usertype" jdbcType="TINYINT"/>
+		<result column="roleid" property="roleid" jdbcType="BIGINT"/>
+		<result column="createtime" property="createtime" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="UserResultMap" type="com.sltunion.cloudy.persistent.model.TUser">
+		<result column="rolename" property="rolename" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.id,a.username,a.password,a.enable,a.usertype,a.roleid,a.createtime
+	</sql>
+	
+	<select id="selectUserByUsername" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_user a
+		where a.username = #{username,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TUser">
+		INSERT INTO t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="enable != null">
+				enable,
+			</if>
+			<if test="usertype != null">
+				usertype,
+			</if>
+			<if test="roleid != null">
+				roleid,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="enable != null">
+				#{enable,jdbcType=TINYINT},
+			</if>
+			<if test="usertype != null">
+				#{usertype,jdbcType=TINYINT},
+			</if>
+			<if test="roleid != null">
+				#{roleid,jdbcType=BIGINT},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TUser">
+		UPDATE t_user a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="username != null and username != ''">
+				a.username=#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null and password != ''">
+				a.password=#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="enable != null">
+				a.enable=#{enable,jdbcType=TINYINT},
+			</if>
+			<if test="usertype != null">
+				a.usertype=#{usertype,jdbcType=TINYINT},
+			</if>
+			<if test="roleid != null">
+				a.roleid=#{roleid,jdbcType=BIGINT},
+			</if>
+			<if test="createtime != null and createtime != ''">
+				a.createtime=#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TUser">
+		DELETE FROM t_user 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TUser">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_user a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_user a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_user a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="UserResultMap">
+		SELECT c.*,b.rolename FROM (
+			SELECT 
+			<include refid="Base_Column_List" />
+			FROM t_user a 
+			WHERE 1=1
+			<if test="id != null">
+				AND a.id=#{id,jdbcType=BIGINT}
+			</if>
+			<if test="username != null and username != ''">
+				AND INSTR(a.username,#{username,jdbcType=VARCHAR})
+			</if>
+			<if test="password != null and password != ''">
+				AND a.password=#{password,jdbcType=VARCHAR}
+			</if>
+			<if test="enable != null">
+				AND a.enable=#{enable,jdbcType=TINYINT}
+			</if>
+			<if test="usertype != null">
+				AND a.usertype=#{usertype,jdbcType=TINYINT}
+			</if>
+			<if test="roleid != null">
+				AND a.roleid=#{roleid,jdbcType=BIGINT}
+			</if>
+			<if test="createtime != null and createtime != ''">
+				AND a.createtime=#{createtime,jdbcType=VARCHAR}
+			</if>
+			<if test="group != null and group != ''">
+				GROUP BY ${group}
+			</if>
+			<if test="order != null and order != ''">
+				ORDER BY ${order}
+			</if>
+			<if test="startIndex != null and pageSize != null">
+				LIMIT #{startIndex},#{pageSize}
+			</if>
+		) c LEFT JOIN t_role b ON b.id=c.roleid
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_user a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="username != null and username != ''">
+			AND INSTR(a.username,#{username,jdbcType=VARCHAR})
+		</if>
+		<if test="password != null and password != ''">
+			AND a.password=#{password,jdbcType=VARCHAR}
+		</if>
+		<if test="enable != null">
+			AND a.enable=#{enable,jdbcType=TINYINT}
+		</if>
+		<if test="usertype != null">
+			AND a.usertype=#{usertype,jdbcType=TINYINT}
+		</if>
+		<if test="roleid != null">
+			AND a.roleid=#{roleid,jdbcType=BIGINT}
+		</if>
+		<if test="createtime != null and createtime != ''">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT '合计:' totalname,count(1) count
+		FROM t_user a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="username != null and username != ''">
+			AND INSTR(a.username,#{username,jdbcType=VARCHAR})
+		</if>
+		<if test="password != null and password != ''">
+			AND a.password=#{password,jdbcType=VARCHAR}
+		</if>
+		<if test="enable != null">
+			AND a.enable=#{enable,jdbcType=TINYINT}
+		</if>
+		<if test="usertype != null">
+			AND a.usertype=#{usertype,jdbcType=TINYINT}
+		</if>
+		<if test="roleid != null">
+			AND a.roleid=#{roleid,jdbcType=BIGINT}
+		</if>
+		<if test="createtime != null and createtime != ''">
+			AND a.createtime=#{createtime,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

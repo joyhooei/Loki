@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.THomepagelockdailyMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.THomepagelockdaily">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="channelid" property="channelid" jdbcType="BIGINT"/>
+		<result column="homepageid" property="homepageid" jdbcType="BIGINT"/>
+		<result column="xpnum" property="xpnum" jdbcType="INTEGER"/>
+		<result column="win732num" property="win732num" jdbcType="INTEGER"/>
+		<result column="othernum" property="othernum" jdbcType="INTEGER"/>
+		<result column="hour" property="hour" jdbcType="INTEGER"/>
+		<result column="createdate" property="createdate" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.id,a.channelid,a.homepageid,a.xpnum,a.win732num,a.othernum,a.hour,a.createdate
+	</sql>
+	
+	<update id="updateByStatisticsSelective" parameterType="com.sltunion.cloudy.persistent.model.THomepagelockdaily">
+		UPDATE t_homepagelockdaily a
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			
+			<if test="xpnum != null and xpnum != 0">
+				a.xpnum=a.xpnum+#{xpnum,jdbcType=INTEGER},
+			</if>
+			<if test="win732num != null and win732num != 0">
+				a.win732num=a.win732num+#{win732num,jdbcType=INTEGER},
+			</if>
+			<if test="othernum != null and othernum != 0">
+				a.othernum=a.othernum+#{othernum,jdbcType=INTEGER},
+			</if>
+		</trim>
+		WHERE a.channelid=#{channelid,jdbcType=BIGINT} AND
+		a.homepageid=#{homepageid,jdbcType=BIGINT} AND
+		a.hour=#{hour,jdbcType=INTEGER} AND
+		a.createdate=#{createdate,jdbcType=VARCHAR}
+	</update>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.THomepagelockdaily">
+		INSERT INTO t_homepagelockdaily
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="channelid != null">
+				channelid,
+			</if>
+			<if test="homepageid != null">
+				homepageid,
+			</if>
+			<if test="xpnum != null">
+				xpnum,
+			</if>
+			<if test="win732num != null">
+				win732num,
+			</if>
+			<if test="othernum != null">
+				othernum,
+			</if>
+			<if test="hour != null">
+				hour,
+			</if>
+			<if test="createdate != null">
+				createdate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="channelid != null">
+				#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="homepageid != null">
+				#{homepageid,jdbcType=BIGINT},
+			</if>
+			<if test="xpnum != null">
+				#{xpnum,jdbcType=INTEGER},
+			</if>
+			<if test="win732num != null">
+				#{win732num,jdbcType=INTEGER},
+			</if>
+			<if test="othernum != null">
+				#{othernum,jdbcType=INTEGER},
+			</if>
+			<if test="hour != null">
+				#{hour,jdbcType=INTEGER},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.THomepagelockdaily">
+		UPDATE t_homepagelockdaily a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="homepageid != null">
+				a.homepageid=#{homepageid,jdbcType=BIGINT},
+			</if>
+			<if test="xpnum != null">
+				a.xpnum=#{xpnum,jdbcType=INTEGER},
+			</if>
+			<if test="win732num != null">
+				a.win732num=#{win732num,jdbcType=INTEGER},
+			</if>
+			<if test="othernum != null">
+				a.othernum=#{othernum,jdbcType=INTEGER},
+			</if>
+			<if test="hour != null">
+				a.hour=#{hour,jdbcType=INTEGER},
+			</if>
+			<if test="createdate != null">
+				a.createdate=#{createdate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.THomepagelockdaily">
+		DELETE FROM t_homepagelockdaily 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.THomepagelockdaily">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_homepagelockdaily a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_homepagelockdaily a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_homepagelockdaily a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="BaseResultMap">
+		SELECT 
+		a.id,a.channelid,a.homepageid,IFNULL(SUM(a.xpnum),0) xpnum,IFNULL(SUM(a.win732num),0) win732num,IFNULL(SUM(a.othernum),0) othernum,a.createdate
+		FROM t_homepagelockdaily a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="homepageid != null">
+			AND a.homepageid=#{homepageid,jdbcType=BIGINT}
+		</if>
+		<if test="xpnum != null">
+			AND a.xpnum=#{xpnum,jdbcType=INTEGER}
+		</if>
+		<if test="win732num != null">
+			AND a.win732num=#{win732num,jdbcType=INTEGER}
+		</if>
+		<if test="othernum != null">
+			AND a.othernum=#{othernum,jdbcType=INTEGER}
+		</if>
+		<if test="hour != null">
+			AND a.hour=#{hour,jdbcType=INTEGER}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+		<if test="group != null and group != ''">
+			GROUP BY ${group}
+		</if>
+		<if test="order != null and order != ''">
+			ORDER BY ${order}
+		</if>
+		<if test="startIndex != null and pageSize != null">
+			LIMIT #{startIndex},#{pageSize}
+		</if>
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_homepagelockdaily a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="homepageid != null">
+			AND a.homepageid=#{homepageid,jdbcType=BIGINT}
+		</if>
+		<if test="xpnum != null">
+			AND a.xpnum=#{xpnum,jdbcType=INTEGER}
+		</if>
+		<if test="win732num != null">
+			AND a.win732num=#{win732num,jdbcType=INTEGER}
+		</if>
+		<if test="othernum != null">
+			AND a.othernum=#{othernum,jdbcType=INTEGER}
+		</if>
+		<if test="hour != null">
+			AND a.hour=#{hour,jdbcType=INTEGER}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT IFNULL(SUM(a.xpnum),0) xpnum,IFNULL(SUM(a.win732num),0) win732num,IFNULL(SUM(a.othernum),0) othernum
+		FROM t_homepagelockdaily a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="homepageid != null">
+			AND a.homepageid=#{homepageid,jdbcType=BIGINT}
+		</if>
+		<if test="xpnum != null">
+			AND a.xpnum=#{xpnum,jdbcType=INTEGER}
+		</if>
+		<if test="win732num != null">
+			AND a.win732num=#{win732num,jdbcType=INTEGER}
+		</if>
+		<if test="othernum != null">
+			AND a.othernum=#{othernum,jdbcType=INTEGER}
+		</if>
+		<if test="hour != null">
+			AND a.hour=#{hour,jdbcType=INTEGER}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="getChartResultList" resultType="java.util.Map" parameterType="Map">
+		SELECT IFNULL(SUM(a.xpnum),0) xpnum,IFNULL(SUM(a.win732num),0) win732num,IFNULL(SUM(a.othernum),0) othernum,a.hour,a.createdate
+		FROM t_homepagelockdaily a 
+		WHERE a.createdate BETWEEN #{startdate,jdbcType=VARCHAR} AND #{enddate,jdbcType=VARCHAR}
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="group != null and group != ''">
+			GROUP BY ${group}
+		</if>
+		<if test="order != null and order != ''">
+			ORDER BY ${order}
+		</if>
+		<if test="startIndex != null and pageSize != null">
+			LIMIT #{startIndex},#{pageSize}
+		</if>
+	</select>
+</mapper>

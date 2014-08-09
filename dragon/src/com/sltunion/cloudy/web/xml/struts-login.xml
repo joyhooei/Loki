@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<!-- 登录 -->
+	<package name="login" extends="struts-default" namespace="/">
+		<action name="login"
+			class="com.sltunion.cloudy.web.action.LoginAction" method="login">
+			<result name="success" type="redirectAction">index</result>
+			<result name="fail">/index.jsp</result>
+		</action>
+		<action name="loginout"
+			class="com.sltunion.cloudy.web.action.LoginAction" method="loginout">
+			<result>/index.jsp</result>
+		</action>
+	</package>
+	<!-- 登录 -->
+	<package name="index" extends="struts2Default" namespace="/">
+		<action name="index"
+			class="com.sltunion.cloudy.web.action.LoginAction" method="index">
+			<result name="success">/pages/index.jsp</result>
+			<result name="fail">/index.jsp</result>
+		</action>
+	</package>
+</struts>

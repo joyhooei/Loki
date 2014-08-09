@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TFilesystemlogMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TFilesystemlog">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="userid" property="userid" jdbcType="BIGINT"/>
+		<result column="channelid" property="channelid" jdbcType="BIGINT"/>
+		<result column="ntfsnum" property="ntfsnum" jdbcType="INTEGER"/>
+		<result column="fat32num" property="fat32num" jdbcType="INTEGER"/>
+		<result column="fatnum" property="fatnum" jdbcType="INTEGER"/>
+		<result column="othernum" property="othernum" jdbcType="INTEGER"/>
+		<result column="createdate" property="createdate" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.id,a.userid,a.channelid,a.ntfsnum,a.fat32num,a.fatnum,a.othernum,a.createdate
+	</sql>
+	
+	<update id="updateByStatisticsSelective" parameterType="com.sltunion.cloudy.persistent.model.TFilesystemlog">
+		UPDATE t_filesystemlog a
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="ntfsnum != null and ntfsnum != 0">
+				a.ntfsnum=a.ntfsnum+#{ntfsnum,jdbcType=INTEGER},
+			</if>
+			<if test="fat32num != null and fat32num != 0">
+				a.fat32num=a.fat32num+#{fat32num,jdbcType=INTEGER},
+			</if>
+			<if test="fatnum != null and fatnum != 0">
+				a.fatnum=a.fatnum+#{fatnum,jdbcType=INTEGER},
+			</if>
+			<if test="othernum != null and othernum != 0">
+				a.othernum=a.othernum+#{othernum,jdbcType=INTEGER},
+			</if>
+		</trim>
+		WHERE a.userid=#{userid,jdbcType=BIGINT} AND
+		a.channelid=#{channelid,jdbcType=BIGINT} AND
+		a.createdate=#{createdate,jdbcType=VARCHAR}
+	</update>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TFilesystemlog">
+		INSERT INTO t_filesystemlog
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="channelid != null">
+				channelid,
+			</if>
+			<if test="ntfsnum != null">
+				ntfsnum,
+			</if>
+			<if test="fat32num != null">
+				fat32num,
+			</if>
+			<if test="fatnum != null">
+				fatnum,
+			</if>
+			<if test="othernum != null">
+				othernum,
+			</if>
+			<if test="createdate != null">
+				createdate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=BIGINT},
+			</if>
+			<if test="channelid != null">
+				#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="ntfsnum != null">
+				#{ntfsnum,jdbcType=INTEGER},
+			</if>
+			<if test="fat32num != null">
+				#{fat32num,jdbcType=INTEGER},
+			</if>
+			<if test="fatnum != null">
+				#{fatnum,jdbcType=INTEGER},
+			</if>
+			<if test="othernum != null">
+				#{othernum,jdbcType=INTEGER},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TFilesystemlog">
+		UPDATE t_filesystemlog a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="userid != null">
+				a.userid=#{userid,jdbcType=BIGINT},
+			</if>
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="ntfsnum != null">
+				a.ntfsnum=#{ntfsnum,jdbcType=INTEGER},
+			</if>
+			<if test="fat32num != null">
+				a.fat32num=#{fat32num,jdbcType=INTEGER},
+			</if>
+			<if test="fatnum != null">
+				a.fatnum=#{fatnum,jdbcType=INTEGER},
+			</if>
+			<if test="othernum != null">
+				a.othernum=#{othernum,jdbcType=INTEGER},
+			</if>
+			<if test="createdate != null">
+				a.createdate=#{createdate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TFilesystemlog">
+		DELETE FROM t_filesystemlog 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TFilesystemlog">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_filesystemlog a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_filesystemlog a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_filesystemlog a 
+	</select>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TConfigchannelMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TConfigchannel">
+		<id column="configid" property="configid" jdbcType="BIGINT"/>
+		<id column="channelid" property="channelid" jdbcType="BIGINT"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.configid,a.channelid
+	</sql>
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TConfigchannel">
+		INSERT INTO t_configchannel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="configid != null">
+				configid,
+			</if>
+			<if test="channelid != null">
+				channelid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="configid != null">
+				#{configid,jdbcType=BIGINT},
+			</if>
+			<if test="channelid != null">
+				#{channelid,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TConfigchannel">
+		UPDATE t_configchannel a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+		</trim>
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="configid != null">
+				a.configid=#{configid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TConfigchannel">
+		DELETE FROM t_configchannel 
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="configid != null">
+				configid=#{configid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="channelid != null">
+				channelid=#{channelid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TConfigchannel">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_configchannel a 
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="configid != null">
+				a.configid=#{configid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_configchannel a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.channelid) FROM t_configchannel a 
+	</select>
+</mapper>

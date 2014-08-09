@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TModuleMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TModule">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="pid" property="pid" jdbcType="BIGINT"/>
+		<result column="modulename" property="modulename" jdbcType="VARCHAR"/>
+		<result column="modulecode" property="modulecode" jdbcType="VARCHAR"/>
+		<result column="manage" property="manage" jdbcType="TINYINT"/>
+		<result column="moduleleave" property="moduleleave" jdbcType="TINYINT"/>
+		<result column="url" property="url" jdbcType="VARCHAR"/>
+		<result column="sortindex" property="sortindex" jdbcType="INTEGER"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.id,a.pid,a.modulename,a.modulecode,a.manage,a.moduleleave,a.url,a.sortindex
+	</sql>
+	<select id="selectModuleByRoleid" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_rolemodule b,t_module a
+		where a.id=b.moduleid and
+		b.roleid=#{roleid,jdbcType=BIGINT} ORDER BY a.sortindex ASC
+	</select>
+	<select id="selectListByPid" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_module a WHERE a.pid=#{pid,jdbcType=BIGINT} ORDER BY a.sortindex ASC
+	</select>
+	<select id="selectListByParams" resultType="java.util.ArrayList" resultMap="BaseResultMap" parameterType="Map">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_module a WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="pid != null">
+			AND a.pid=#{pid,jdbcType=BIGINT}
+		</if>
+		<if test="modulename != null">
+			AND a.modulename=#{modulename,jdbcType=VARCHAR}
+		</if>
+		<if test="modulecode != null">
+			AND a.modulecode=#{modulecode,jdbcType=VARCHAR}
+		</if>
+		<if test="manage != null">
+			AND a.manage=#{manage,jdbcType=TINYINT}
+		</if>
+		<if test="moduleleave != null">
+			AND a.moduleleave=#{moduleleave,jdbcType=TINYINT}
+		</if>
+		<if test="url != null">
+			AND a.url=#{url,jdbcType=VARCHAR}
+		</if>
+		<if test="sortindex != null">
+			AND a.sortindex=#{sortindex,jdbcType=INTEGER}
+		</if>
+		<if test="group != null and group != ''">
+			GROUP BY ${group}
+		</if>
+		<if test="order != null and order != ''">
+			ORDER BY ${order}
+		</if>
+	</select>
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TModule">
+		INSERT INTO t_module
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="pid != null">
+				pid,
+			</if>
+			<if test="modulename != null">
+				modulename,
+			</if>
+			<if test="modulecode != null">
+				modulecode,
+			</if>
+			<if test="manage != null">
+				manage,
+			</if>
+			<if test="moduleleave != null">
+				moduleleave,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="sortindex != null">
+				sortindex,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="pid != null">
+				#{pid,jdbcType=BIGINT},
+			</if>
+			<if test="modulename != null">
+				#{modulename,jdbcType=VARCHAR},
+			</if>
+			<if test="modulecode != null">
+				#{modulecode,jdbcType=VARCHAR},
+			</if>
+			<if test="manage != null">
+				#{manage,jdbcType=TINYINT},
+			</if>
+			<if test="moduleleave != null">
+				#{moduleleave,jdbcType=TINYINT},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="sortindex != null">
+				#{sortindex,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TModule">
+		UPDATE t_module a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="pid != null">
+				a.pid=#{pid,jdbcType=BIGINT},
+			</if>
+			<if test="modulename != null">
+				a.modulename=#{modulename,jdbcType=VARCHAR},
+			</if>
+			<if test="modulecode != null">
+				a.modulecode=#{modulecode,jdbcType=VARCHAR},
+			</if>
+			<if test="manage != null">
+				a.manage=#{manage,jdbcType=TINYINT},
+			</if>
+			<if test="moduleleave != null">
+				a.moduleleave=#{moduleleave,jdbcType=TINYINT},
+			</if>
+			<if test="url != null">
+				a.url=#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="sortindex != null">
+				a.sortindex=#{sortindex,jdbcType=INTEGER},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TModule">
+		DELETE FROM t_module 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TModule">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_module a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_module a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_module a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_module a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="pid != null">
+			AND a.pid=#{pid,jdbcType=BIGINT}
+		</if>
+		<if test="modulename != null">
+			AND a.modulename=#{modulename,jdbcType=VARCHAR}
+		</if>
+		<if test="modulecode != null">
+			AND a.modulecode=#{modulecode,jdbcType=VARCHAR}
+		</if>
+		<if test="manage != null">
+			AND a.manage=#{manage,jdbcType=TINYINT}
+		</if>
+		<if test="moduleleave != null">
+			AND a.moduleleave=#{moduleleave,jdbcType=TINYINT}
+		</if>
+		<if test="url != null">
+			AND a.url=#{url,jdbcType=VARCHAR}
+		</if>
+		<if test="sortindex != null">
+			AND a.sortindex=#{sortindex,jdbcType=INTEGER}
+		</if>
+		<if test="group != null and group != ''">
+			GROUP BY ${group}
+		</if>
+		<if test="order != null and order != ''">
+			ORDER BY ${order}
+		</if>
+		<if test="startIndex != null and pageSize != null">
+			LIMIT #{startIndex},#{pageSize}
+		</if>
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_module a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="pid != null">
+			AND a.pid=#{pid,jdbcType=BIGINT}
+		</if>
+		<if test="modulename != null">
+			AND a.modulename=#{modulename,jdbcType=VARCHAR}
+		</if>
+		<if test="modulecode != null">
+			AND a.modulecode=#{modulecode,jdbcType=VARCHAR}
+		</if>
+		<if test="manage != null">
+			AND a.manage=#{manage,jdbcType=TINYINT}
+		</if>
+		<if test="moduleleave != null">
+			AND a.moduleleave=#{moduleleave,jdbcType=TINYINT}
+		</if>
+		<if test="url != null">
+			AND a.url=#{url,jdbcType=VARCHAR}
+		</if>
+		<if test="sortindex != null">
+			AND a.sortindex=#{sortindex,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT '合计:' totalname,count(1) count
+		FROM t_module a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="pid != null">
+			AND a.pid=#{pid,jdbcType=BIGINT}
+		</if>
+		<if test="modulename != null">
+			AND a.modulename=#{modulename,jdbcType=VARCHAR}
+		</if>
+		<if test="modulecode != null">
+			AND a.modulecode=#{modulecode,jdbcType=VARCHAR}
+		</if>
+		<if test="manage != null">
+			AND a.manage=#{manage,jdbcType=TINYINT}
+		</if>
+		<if test="moduleleave != null">
+			AND a.moduleleave=#{moduleleave,jdbcType=TINYINT}
+		</if>
+		<if test="url != null">
+			AND a.url=#{url,jdbcType=VARCHAR}
+		</if>
+		<if test="sortindex != null">
+			AND a.sortindex=#{sortindex,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

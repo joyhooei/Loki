@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<!-- 修改密码 -->
+	<package name="crmajax" extends="jsonDefault" namespace="/crm/ajax">
+		<action name="checkpwd"
+			class="com.sltunion.cloudy.web.action.manage.ajax.UserAjaxAction"
+			method="checkpwd">
+			<result type="json">
+				<param name="contentType">text/html</param>
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="updatepwd"
+			class="com.sltunion.cloudy.web.action.manage.ajax.UserAjaxAction"
+			method="updatepwd">
+			<result type="json"></result>
+		</action>
+		<action name="iauChart"
+			class="com.sltunion.cloudy.web.action.front.IaudailylogAction" method="chart">
+			<result type="json">
+				<param name="root">resultMap</param>
+				<!-- 实例化父action的属性 -->
+				<param name="ignoreHierarchy">false</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+				<!-- 这里指定将序列化dataMap中的那些属性 -->
+				<!-- <param name="includeProperties">userList.*</param> -->
+				<!-- 这里指定将要从dataMap中排除那些属性，这些排除的属性将不被序列化，一半不与上边的参数配置同时出现 -->
+				<!-- <param name="excludeProperties">SUCCESS</param> -->
+			</result>
+		</action>
+	</package>
+	
+	<!-- 数据统计 -->
+	<package name="crm" extends="struts2Default" namespace="/crm">
+		<!-- 安装活跃卸载 -->
+		<action name="iau"
+			class="com.sltunion.cloudy.web.action.front.IaudailylogAction" method="index">
+			<result>/pages/front/statistics/iau.jsp</result>
+		</action>
+		<action name="iauci"
+			class="com.sltunion.cloudy.web.action.crm.IAUdailyAction"
+			method="iaulog">
+			<result name="success">/crm/pages/statistics/iau/iaulog.jsp</result>
+		</action>
+		
+		<!--修改密码 -->
+		<action name="changePassword"
+			class="com.sltunion.cloudy.web.action.manage.UserAction" method="changePassword">
+			<result>/crm/pages/updatepwd.jsp</result>
+		</action>
+		<action name="updatepwd"
+			class="com.sltunion.cloudy.web.action.manage.UserAction"
+			method="updatepwd">
+			<result>/crm/pages/updatepwd.jsp</result>
+		</action>
+	</package>
+</struts>

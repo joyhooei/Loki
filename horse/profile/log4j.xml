@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<!-- 发邮件 -->
+	<!-- <appender name="MAIL" class="org.apache.log4j.net.SMTPAppender"> -->
+	<!-- <param name="threshold" value="info" /> -->
+	<!-- 日志的错误级别 <param name="threshold" value="fatal"/> -->
+	<!-- 缓存文件大小，日志达到512K时发送Email -->
+	<!-- <param name="BufferSize" value="10" />单位K -->
+	<!-- <param name="From" value="liugang@sxit.com.cn" /> -->
+	<!-- <param name="SMTPHost" value="58.60.231.2" /> -->
+	<!-- <param name="Subject" value="juyee-log4jMessage" /> -->
+	<!-- <param name="To" value="liugang@sxit.com.cn" /> -->
+	<!-- <param name="SMTPUsername" value="liugang@sxit.com.cn" /> -->
+	<!-- <param name="SMTPPassword" value="123456" /> -->
+	<!-- <layout class="org.apache.log4j.PatternLayout"> -->
+	<!-- <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.sss} 
+		[%-5p] %c[%l] - %m%n" /> -->
+	<!-- </layout> -->
+	<!-- </appender> -->
+
+	<!-- 配置 -->
+	<!-- CONSOLE -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.sss} [%p] [%l] - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- LOGGER-ALL -->
+	<appender name="LOGGER-ALL" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/root/files/logs/dragon/all.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.sss} [%p] [%l] - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- LOGGER-DEBUG -->
+	<appender name="LOGGER-DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/root/files/logs/horse/debug.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.sss} [%p] [%l] - %m%n" />
+		</layout>
+		<!-- filter作 配置LevelMax与LevelMin限定输出到文件的日志级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="DEBUG" />
+			<param name="LevelMin" value="DEBUG" />
+		</filter>
+	</appender>
+
+	<!-- LOGGER-INFO -->
+	<appender name="LOGGER-INFO" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/root/files/logs/horse/info.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.sss} [%p] [%l] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="INFO" />
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+
+	<!-- LOGGER-ERROR -->
+	<appender name="LOGGER-ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/root/files/logs/horse/error.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.sss} [%p] [%l] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="WARN" />
+		</filter>
+	</appender>
+
+	<!-- LOGGER-FATAL -->
+	<appender name="LOGGER-FATAL" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/root/files/logs/horse/fatal.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.sss} [%p] [%l] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="FATAL" />
+			<param name="LevelMin" value="FATAL" />
+		</filter>
+	</appender>
+	<!-- 配置结束 -->
+
+	<!-- OUT配置级别 -->
+	<logger name="net.sf.ehcache">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="org.apache">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="org.apache.velocity">
+		<level value="FATAL" />
+	</logger>
+
+	<logger name="org.logicalcobwebs.proxool">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="com.opensymphony.xwork2.ognl.OgnlValueStack">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="com.opensymphony.xwork2">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="com.apache.struts2">
+		<level value="ERROR" />
+	</logger>
+	
+	<logger name="com.ibatis"> 
+	  <level value="ERROR" /> 
+	</logger>
+
+	<logger name="org.mybatis"> 
+	  <level value="ERROR" /> 
+	</logger> 
+	
+	<logger name="java.sql">
+		<level value="DEBUG" />
+	</logger>
+
+	<logger name="com.mongodb">
+		<level value="ERROR" />
+	</logger>
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+<!--		<level value="INFO" />-->
+<!-- 		<appender-ref ref="LOGGER-ALL" /> -->
+<!-- 		<appender-ref ref="LOGGER-DEBUG" /> -->
+<!-- 		<appender-ref ref="LOGGER-INFO" /> -->
+<!-- 		<appender-ref ref="LOGGER-ERROR" /> -->
+<!-- 		<appender-ref ref="LOGGER-FATAL" /> -->
+	</root>
+</log4j:configuration>

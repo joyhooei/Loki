@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TCostlogMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TCostlog">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="userid" property="userid" jdbcType="BIGINT"/>
+		<result column="channelid" property="channelid" jdbcType="BIGINT"/>
+		<result column="installnum" property="installnum" jdbcType="INTEGER"/>
+		<result column="costprice" property="costprice" jdbcType="FLOAT"/>
+		<result column="totalcost" property="totalcost" jdbcType="FLOAT"/>
+		<result column="inputprice" property="inputprice" jdbcType="FLOAT"/>
+		<result column="totalinput" property="totalinput" jdbcType="FLOAT"/>
+		<result column="status" property="status" jdbcType="TINYINT"/>
+		<result column="createdate" property="createdate" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.id,a.userid,a.channelid,a.installnum,a.costprice,a.totalcost,a.inputprice,a.totalinput,a.status,a.createdate
+	</sql>
+	
+	<insert id="insertByStatisticsSelective" parameterType="com.sltunion.cloudy.persistent.model.TCostlog">
+		INSERT INTO t_costlog(userid, channelid, installnum, costprice, totalcost, inputprice, totalinput, STATUS, createdate)
+		SELECT a.userid,a.id,IFNULL(SUM(b.installnum),0) installnum,a.price,IFNULL(SUM(b.installnum),0)*a.price totalcost,0.05,0,2,b.createdate FROM t_channel a,t_iaudailylog b 
+		WHERE a.id=b.channelid AND b.createdate=#{createdate,jdbcType=VARCHAR} GROUP BY b.channelid;
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TCostlog">
+		INSERT INTO t_costlog
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="channelid != null">
+				channelid,
+			</if>
+			<if test="installnum != null">
+				installnum,
+			</if>
+			<if test="costprice != null">
+				costprice,
+			</if>
+			<if test="totalcost != null">
+				totalcost,
+			</if>
+			<if test="inputprice != null">
+				inputprice,
+			</if>
+			<if test="totalinput != null">
+				totalinput,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createdate != null">
+				createdate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=BIGINT},
+			</if>
+			<if test="channelid != null">
+				#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="installnum != null">
+				#{installnum,jdbcType=INTEGER},
+			</if>
+			<if test="costprice != null">
+				#{costprice,jdbcType=FLOAT},
+			</if>
+			<if test="totalcost != null">
+				#{totalcost,jdbcType=FLOAT},
+			</if>
+			<if test="inputprice != null">
+				#{inputprice,jdbcType=FLOAT},
+			</if>
+			<if test="totalinput != null">
+				#{totalinput,jdbcType=FLOAT},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TCostlog">
+		UPDATE t_costlog a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="userid != null">
+				a.userid=#{userid,jdbcType=BIGINT},
+			</if>
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="installnum != null">
+				a.installnum=#{installnum,jdbcType=INTEGER},
+			</if>
+			<if test="costprice != null">
+				a.costprice=#{costprice,jdbcType=FLOAT},
+			</if>
+			<if test="totalcost != null">
+				a.totalcost=#{totalcost,jdbcType=FLOAT},
+			</if>
+			<if test="inputprice != null">
+				a.inputprice=#{inputprice,jdbcType=FLOAT},
+			</if>
+			<if test="totalinput != null">
+				a.totalinput=#{totalinput,jdbcType=FLOAT},
+			</if>
+			<if test="status != null">
+				a.status=#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createdate != null">
+				a.createdate=#{createdate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TCostlog">
+		DELETE FROM t_costlog 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TCostlog">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_costlog a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_costlog a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_costlog a 
+	</select>
+	<select id="selectPager" resultType="java.util.Map" parameterType="Map" resultMap="BaseResultMap">
+		SELECT 
+		a.id,a.userid,a.channelid,IFNULL(SUM(a.installnum),0) installnum,a.costprice,IFNULL(SUM(a.totalcost),0) totalcost,a.inputprice,IFNULL(SUM(a.totalinput),0) totalinput,a.status,a.createdate
+		FROM t_costlog a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="userid != null">
+			AND a.userid=#{userid,jdbcType=BIGINT}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="installnum != null">
+			AND a.installnum=#{installnum,jdbcType=INTEGER}
+		</if>
+		<if test="costprice != null">
+			AND a.costprice=#{costprice,jdbcType=FLOAT}
+		</if>
+		<if test="totalcost != null">
+			AND a.totalcost=#{totalcost,jdbcType=FLOAT}
+		</if>
+		<if test="inputprice != null">
+			AND a.inputprice=#{inputprice,jdbcType=FLOAT}
+		</if>
+		<if test="totalinput != null">
+			AND a.totalinput=#{totalinput,jdbcType=FLOAT}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+		<if test="startdate != null and enddate != null">
+			AND a.createdate BETWEEN #{startdate,jdbcType=VARCHAR} AND #{enddate,jdbcType=VARCHAR}
+		</if>
+		<if test="group != null and group != ''">
+			GROUP BY ${group}
+		</if>
+		<if test="order != null and order != ''">
+			ORDER BY ${order}
+		</if>
+		<if test="startIndex != null and pageSize != null">
+			LIMIT #{startIndex},#{pageSize}
+		</if>
+	</select>
+	<select id="countPager" resultType="java.lang.Long" parameterType="Map">
+		SELECT count(a.id) FROM t_costlog a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="userid != null">
+			AND a.userid=#{userid,jdbcType=BIGINT}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="installnum != null">
+			AND a.installnum=#{installnum,jdbcType=INTEGER}
+		</if>
+		<if test="costprice != null">
+			AND a.costprice=#{costprice,jdbcType=FLOAT}
+		</if>
+		<if test="totalcost != null">
+			AND a.totalcost=#{totalcost,jdbcType=FLOAT}
+		</if>
+		<if test="inputprice != null">
+			AND a.inputprice=#{inputprice,jdbcType=FLOAT}
+		</if>
+		<if test="totalinput != null">
+			AND a.totalinput=#{totalinput,jdbcType=FLOAT}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+		<if test="startdate != null and enddate != null">
+			AND a.createdate BETWEEN #{startdate,jdbcType=VARCHAR} AND #{enddate,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectFooter" resultType="java.util.Map" parameterType="Map">
+		SELECT IFNULL(SUM(a.installnum),0) installnum,IFNULL(SUM(a.totalcost),0) totalcost,IFNULL(SUM(a.totalinput),0) totalinput
+		FROM t_costlog a 
+		WHERE 1=1
+		<if test="id != null">
+			AND a.id=#{id,jdbcType=BIGINT}
+		</if>
+		<if test="userid != null">
+			AND a.userid=#{userid,jdbcType=BIGINT}
+		</if>
+		<if test="channelid != null">
+			AND a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+		<if test="installnum != null">
+			AND a.installnum=#{installnum,jdbcType=INTEGER}
+		</if>
+		<if test="costprice != null">
+			AND a.costprice=#{costprice,jdbcType=FLOAT}
+		</if>
+		<if test="totalcost != null">
+			AND a.totalcost=#{totalcost,jdbcType=FLOAT}
+		</if>
+		<if test="inputprice != null">
+			AND a.inputprice=#{inputprice,jdbcType=FLOAT}
+		</if>
+		<if test="totalinput != null">
+			AND a.totalinput=#{totalinput,jdbcType=FLOAT}
+		</if>
+		<if test="status != null">
+			AND a.status=#{status,jdbcType=TINYINT}
+		</if>
+		<if test="createdate != null">
+			AND a.createdate=#{createdate,jdbcType=VARCHAR}
+		</if>
+		<if test="startdate != null and enddate != null">
+			AND a.createdate BETWEEN #{startdate,jdbcType=VARCHAR} AND #{enddate,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

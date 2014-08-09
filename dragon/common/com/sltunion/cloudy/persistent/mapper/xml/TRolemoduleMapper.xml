@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TRolemoduleMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TRolemodule">
+		<id column="roleid" property="roleid" jdbcType="BIGINT"/>
+		<id column="moduleid" property="moduleid" jdbcType="BIGINT"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.roleid,a.moduleid
+	</sql>
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TRolemodule">
+		INSERT INTO t_rolemodule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleid != null">
+				roleid,
+			</if>
+			<if test="moduleid != null">
+				moduleid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleid != null">
+				#{roleid,jdbcType=BIGINT},
+			</if>
+			<if test="moduleid != null">
+				#{moduleid,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TRolemodule">
+		UPDATE t_rolemodule a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+		</trim>
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="roleid != null">
+				a.roleid=#{roleid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="moduleid != null">
+				a.moduleid=#{moduleid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TRolemodule">
+		DELETE FROM t_rolemodule 
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="roleid != null">
+				roleid=#{roleid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="moduleid != null">
+				moduleid=#{moduleid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TRolemodule">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_rolemodule a 
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="roleid != null">
+				a.roleid=#{roleid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="moduleid != null">
+				a.moduleid=#{moduleid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_rolemodule a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.moduleid) FROM t_rolemodule a 
+	</select>
+</mapper>

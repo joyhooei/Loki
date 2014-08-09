@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TChannelinstallMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TChannelinstall">
+		<id column="channelid" property="channelid" jdbcType="BIGINT"/>
+		<result column="userid" property="userid" jdbcType="BIGINT"/>
+		<result column="installnum" property="installnum" jdbcType="INTEGER"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.channelid,a.userid,a.installnum
+	</sql>
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TChannelinstall">
+		INSERT INTO t_channelinstall
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="channelid != null">
+				channelid,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="installnum != null">
+				installnum,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="channelid != null">
+				#{channelid,jdbcType=BIGINT},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=BIGINT},
+			</if>
+			<if test="installnum != null">
+				#{installnum,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TChannelinstall">
+		UPDATE t_channelinstall a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="userid != null">
+				a.userid=#{userid,jdbcType=BIGINT},
+			</if>
+			<if test="installnum != null">
+				a.installnum=#{installnum,jdbcType=INTEGER},
+			</if>
+		</trim>
+		WHERE 
+		<if test="channelid != null">
+			a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TChannelinstall">
+		DELETE FROM t_channelinstall 
+		WHERE 
+		<if test="channelid != null">
+			channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TChannelinstall">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_channelinstall a 
+		WHERE 
+		<if test="channelid != null">
+			a.channelid=#{channelid,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_channelinstall a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.channelid) FROM t_channelinstall a 
+	</select>
+</mapper>

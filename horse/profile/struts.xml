@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- Constants -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.action.extension" value="xhtml" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.multipart.maxSize" value="1002097152" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.enable.SlashesInActionNames" value="true" />
+	<constant name="struts.codebehind.pathPrefix" value="/admin/" />
+	<!-- *** Struts2优化参数 *** -->
+	<constant name="struts.freemarker.templatesCache" value="true" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="false" />
+	<constant name="struts.multipart.saveDir" value="java.io.tmpdir"></constant>
+
+	<package name="struts2Default" extends="struts-default" namespace="/">
+		<interceptors>
+			<interceptor name="sessionInterceptor"
+				class="com.sltunion.cloudy.web.Interceptor.SessionInterceptor" />
+			<interceptor-stack name="baseInterceptorStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="sessionInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="baseInterceptorStack" />
+		<global-results>
+			<result name="error">/error.jsp</result>
+			<result name="timeout" type="redirect">/sessionTimeout.jsp</result>
+			<result name="accessDenied" type="redirect">/accessDenied.jsp</result>
+		</global-results>
+	</package>
+	<package name="jsonDefault" extends="json-default">
+		<interceptors>
+			<interceptor name="sessionInterceptor"
+				class="com.sltunion.cloudy.web.Interceptor.SessionInterceptor" />
+			<interceptor-stack name="baseInterceptorStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="sessionInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="baseInterceptorStack" />
+		<global-results>
+			<result name="timeout" type="redirect">/timeout.jsp</result>
+		</global-results>
+	</package>
+	<!--接口配置-->
+	<include file="com/sltunion/cloudy/web/xml/struts-interface.xml"></include>
+</struts>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 安装激活卸载统计 -->
+	<bean id="iauDailyQuartzJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="iauDailyQuartz" />
+		<property name="targetMethod" value="doStatistics" />
+	</bean>
+	<bean id="iauDailyQuartzJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="iauDailyQuartzJob" />
+		<property name="cronExpression" value="59 59 0/1 * * ?" />
+	</bean>
+
+	<!-- 驱动主页加载统计 -->
+	<bean id="homepagelockQuartzJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="homepagelockQuartz" />
+		<property name="targetMethod" value="doStatistics" />
+	</bean>
+	<bean id="homepagelockQuartzJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="homepagelockQuartzJob" />
+		<property name="cronExpression" value="59 0/1 * * * ?" />
+	</bean>
+	
+	<!-- 支付统计 -->
+	<bean id="costlogQuqrtzJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="costlogQuqrtz" />
+		<property name="targetMethod" value="mdoStatistics" />
+	</bean>
+	<bean id="costlogQuqrtzJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="costlogQuqrtzJob" />
+		<property name="cronExpression" value="0 0 3 * * ?" />
+	</bean>
+
+	<!--	 默认浏览器统计 -->
+<!--	<bean id="browserQuartzJob"-->
+<!--		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+<!--		<property name="targetObject" ref="browserQuartz" />-->
+<!--		<property name="targetMethod" value="mdoStatistics" />-->
+<!--	</bean>-->
+<!--	<bean id="browserQuartzJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+<!--		<property name="jobDetail" ref="browserQuartzJob" />-->
+<!--		<property name="cronExpression" value="20 0/1 * * * ?" />-->
+<!--	</bean>-->
+
+	<!--	 文件系统统计 -->
+<!--	<bean id="filesystemQuartzJob"-->
+<!--		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+<!--		<property name="targetObject" ref="filesystemQuartz" />-->
+<!--		<property name="targetMethod" value="mdoStatistics" />-->
+<!--	</bean>-->
+<!--	<bean id="filesystemQuartzJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+<!--		<property name="jobDetail" ref="filesystemQuartzJob" />-->
+<!--		<property name="cronExpression" value="30 0/1 * * * ?" />-->
+<!--	</bean>-->
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		autowire="no">
+		<property name="triggers">
+			<list>
+				<ref bean="iauDailyQuartzJobTrigger" />
+				<ref bean="homepagelockQuartzJobTrigger" />
+				<ref bean="costlogQuqrtzJobTrigger" />
+				<!--				<ref bean="browserQuartzJobTrigger" />-->
+				<!--				<ref bean="filesystemQuartzJobTrigger" />-->
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TStatisticsMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TStatistics">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="sourcetable" property="sourcetable" jdbcType="VARCHAR"/>
+		<result column="targettable" property="targettable" jdbcType="VARCHAR"/>
+		<result column="sourceid" property="sourceid" jdbcType="BIGINT"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.id,a.sourcetable,a.targettable,a.sourceid
+	</sql>
+	
+	<update id="updateByTable" parameterType="com.sltunion.cloudy.persistent.model.TStatistics">
+		UPDATE t_statistics a SET a.sourceid=#{sourceid,jdbcType=BIGINT}
+		WHERE a.sourcetable=#{sourcetable,jdbcType=VARCHAR} AND a.targettable=#{targettable,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByTable" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TStatistics">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_statistics a 
+		WHERE a.sourcetable=#{sourcetable,jdbcType=VARCHAR} AND a.targettable=#{targettable,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TStatistics">
+		INSERT INTO t_statistics
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="sourcetable != null">
+				sourcetable,
+			</if>
+			<if test="targettable != null">
+				targettable,
+			</if>
+			<if test="sourceid != null">
+				sourceid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="sourcetable != null">
+				#{sourcetable,jdbcType=VARCHAR},
+			</if>
+			<if test="targettable != null">
+				#{targettable,jdbcType=VARCHAR},
+			</if>
+			<if test="sourceid != null">
+				#{sourceid,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TStatistics">
+		UPDATE t_statistics a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+			<if test="sourcetable != null">
+				a.sourcetable=#{sourcetable,jdbcType=VARCHAR},
+			</if>
+			<if test="targettable != null">
+				a.targettable=#{targettable,jdbcType=VARCHAR},
+			</if>
+			<if test="sourceid != null">
+				a.sourceid=#{sourceid,jdbcType=BIGINT},
+			</if>
+		</trim>
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TStatistics">
+		DELETE FROM t_statistics 
+		WHERE 
+		<if test="id != null">
+			id=#{id,jdbcType=BIGINT}
+		</if>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TStatistics">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_statistics a 
+		WHERE 
+		<if test="id != null">
+			a.id=#{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_statistics a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.id) FROM t_statistics a 
+	</select>
+</mapper>

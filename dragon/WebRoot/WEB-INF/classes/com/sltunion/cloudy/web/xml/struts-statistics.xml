@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<package name="statisticsAjax" extends="jsonDefault" namespace="/manage/ajax">
+		<action name="hplChart"
+			class="com.sltunion.cloudy.web.action.manage.HomepagelockdailyAction" method="chart">
+			<result type="json">
+				<param name="root">resultMap</param>
+				<!-- 实例化父action的属性 -->
+				<param name="ignoreHierarchy">false</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+				<!-- 这里指定将序列化dataMap中的那些属性 -->
+				<!-- <param name="includeProperties">userList.*</param> -->
+				<!-- 这里指定将要从dataMap中排除那些属性，这些排除的属性将不被序列化，一半不与上边的参数配置同时出现 -->
+				<!-- <param name="excludeProperties">SUCCESS</param> -->
+			</result>
+		</action>
+		<action name="iauChart"
+			class="com.sltunion.cloudy.web.action.manage.IaudailylogAction" method="chart">
+			<result type="json">
+				<param name="root">resultMap</param>
+				<!-- 实例化父action的属性 -->
+				<param name="ignoreHierarchy">false</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+				<!-- 这里指定将序列化dataMap中的那些属性 -->
+				<!-- <param name="includeProperties">userList.*</param> -->
+				<!-- 这里指定将要从dataMap中排除那些属性，这些排除的属性将不被序列化，一半不与上边的参数配置同时出现 -->
+				<!-- <param name="excludeProperties">SUCCESS</param> -->
+			</result>
+		</action>
+		<action name="playCost"
+			class="com.sltunion.cloudy.web.action.manage.CostlogAction" method="playCost">
+			<result type="json">
+				<param name="root">resultMap</param>
+				<!-- 实例化父action的属性 -->
+				<param name="ignoreHierarchy">false</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+				<!-- 这里指定将序列化dataMap中的那些属性 -->
+				<!-- <param name="includeProperties">userList.*</param> -->
+				<!-- 这里指定将要从dataMap中排除那些属性，这些排除的属性将不被序列化，一半不与上边的参数配置同时出现 -->
+				<!-- <param name="excludeProperties">SUCCESS</param> -->
+			</result>
+		</action>
+	</package>
+	<!-- 数据统计 -->
+	<package name="statistics" extends="struts2Default" namespace="/manage">
+		<!-- 安装活跃卸载 -->
+		<action name="iau"
+			class="com.sltunion.cloudy.web.action.manage.IaudailylogAction" method="index">
+			<result>/pages/manage/statistics/iau.jsp</result>
+		</action>
+		<action name="iauci"
+			class="com.sltunion.cloudy.web.action.manage.IaudailylogAction" method="iaulog">
+			<result name="success">/pages/manage/statistics/iau/iaulog.jsp</result>
+		</action>
+		<action name="cost"
+			class="com.sltunion.cloudy.web.action.manage.CostlogAction" method="index">
+			<result>/pages/manage/statistics/cost.jsp</result>
+		</action>
+
+		<!-- 主页统计 -->
+		<action name="hpls"
+			class="com.sltunion.cloudy.web.action.manage.HomepagelockdailyAction"
+			method="index">
+			<result>/pages/manage/statistics/hpl.jsp</result>
+		</action>
+
+		<!-- 终端统计 -->
+		<action name="bl"
+			class="com.sltunion.cloudy.web.action.manage.BrowserlogAction"
+			method="index">
+			<result name="success">/pages/manage/statistics/bl/index.jsp</result>
+		</action>
+		<action name="blci"
+			class="com.sltunion.cloudy.web.action.manage.BrowserlogAction"
+			method="browserlog">
+			<result name="success">/pages/manage/statistics/bl/browserlog.jsp
+			</result>
+		</action>
+
+		<!-- 主页统计 -->
+		<action name="fs"
+			class="com.sltunion.cloudy.web.action.manage.FilesystemlogAction"
+			method="index">
+			<result>/pages/manage/statistics/fs/index.jsp</result>
+		</action>
+	</package>
+</struts>

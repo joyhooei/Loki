@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TExistMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TExist">
+		<id column="existval" property="existval" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.existval
+	</sql>
+	
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TExist">
+		INSERT INTO ${table}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="existval != null">
+				existval,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="existval != null">
+				#{existval,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TExist">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM ${table} a 
+		WHERE 
+		<if test="existval != null">
+			a.existval=#{existval,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

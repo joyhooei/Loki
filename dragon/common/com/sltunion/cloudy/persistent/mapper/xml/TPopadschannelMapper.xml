@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sltunion.cloudy.persistent.mapper.TPopadschannelMapper">
+	<resultMap id="BaseResultMap" type="com.sltunion.cloudy.persistent.model.TPopadschannel">
+		<id column="popadsid" property="popadsid" jdbcType="BIGINT"/>
+		<id column="channelid" property="channelid" jdbcType="BIGINT"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.popadsid,a.channelid
+	</sql>
+	<insert id="insertSelective" parameterType="com.sltunion.cloudy.persistent.model.TPopadschannel">
+		INSERT INTO t_popadschannel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="popadsid != null">
+				popadsid,
+			</if>
+			<if test="channelid != null">
+				channelid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="popadsid != null">
+				#{popadsid,jdbcType=BIGINT},
+			</if>
+			<if test="channelid != null">
+				#{channelid,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.sltunion.cloudy.persistent.model.TPopadschannel">
+		UPDATE t_popadschannel a 
+		<trim prefix="SET " suffix=" " suffixOverrides=",">
+		</trim>
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="popadsid != null">
+				a.popadsid=#{popadsid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="com.sltunion.cloudy.persistent.model.TPopadschannel">
+		DELETE FROM t_popadschannel 
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="popadsid != null">
+				popadsid=#{popadsid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="channelid != null">
+				channelid=#{channelid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</delete>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sltunion.cloudy.persistent.model.TPopadschannel">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_popadschannel a 
+		WHERE 
+		<trim prefix="" suffix="" suffixOverrides=" AND ">
+			<if test="popadsid != null">
+				a.popadsid=#{popadsid,jdbcType=BIGINT} AND 
+			</if>
+			<if test="channelid != null">
+				a.channelid=#{channelid,jdbcType=BIGINT} AND 
+			</if>
+		</trim>
+	</select>
+	<select id="selectAll" resultType="java.util.ArrayList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM t_popadschannel a 
+	</select>
+	<select id="countAll" resultType="java.lang.Long">
+		SELECT count(a.channelid) FROM t_popadschannel a 
+	</select>
+</mapper>

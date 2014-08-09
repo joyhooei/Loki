@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<package name="ajax" extends="jsonDefault" namespace="/manage/ajax">
+	</package>
+
+	<!--人员管理 -->
+	<package name="module" extends="struts2Default" namespace="/manage">
+		<!--用户列表 -->
+		<action name="module"
+			class="com.sltunion.cloudy.web.action.manage.UserAction" method="index">
+			<result>/pages/module/index.jsp</result>
+		</action>
+		<action name="addModule"
+			class="com.sltunion.cloudy.web.action.manage.UserAction" method="add">
+			<result>/pages/module/add.jsp</result>
+		</action>
+		<action name="editModule"
+			class="com.sltunion.cloudy.web.action.manage.UserAction" method="edit">
+			<result>/pages/module/edit.jsp</result>
+		</action>
+		<action name="saveModule"
+			class="com.sltunion.cloudy.web.action.manage.UserAction" method="save">
+			<result type="redirectAction">module</result>
+		</action>
+		<action name="updateModule"
+			class="com.sltunion.cloudy.web.action.manage.UserAction" method="update">
+			<result type="redirectAction">module</result>
+		</action>
+		<action name="delModule"
+			class="com.sltunion.cloudy.web.action.manage.UserAction" method="delete">
+			<result type="redirectAction">module</result>
+		</action>
+	</package>
+</struts>

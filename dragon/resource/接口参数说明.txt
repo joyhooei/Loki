@@ -1,0 +1,51 @@
+弹窗广告
+ci	渠道id
+
+安装活跃卸载上报
+ci	渠道id
+cn	渠道名称,不用传此参数
+op	操作 install active uninstall
+st	启动类型 1用户启动，0开机启动
+sv	系统版本 51 52 61 62
+i6	是否64位操作系统
+fa	文件系统0 ntfs 1 fat32 2 fat 3 其他
+sn	磁盘序列号
+iv	是否虚拟机  0 真机  1 虚拟机
+ma	客户端mac
+ip	请求ip,不用传此参数
+
+
+主页锁定
+ci	渠道id
+i3	默认地址是不是360.cn 0否 1是
+db	默认浏览器 chrome.exe
+id	安装日期
+sn	驱动版本号
+dn	磁盘序列号
+sv	系统版本 51 52 61 62
+ma	客户端mac
+ifs 第一次启动  1 是 0 否
+ip	请求ip,不用传此参数
+
+驱动下载
+ci	渠道id
+i3	默认地址是不是360.cn 0否 1是
+db	默认浏览器 chrome.exe
+id	安装日期
+sn	驱动版本号
+dn	磁盘序列号
+sv	系统版本 51 52 61 62
+ma	客户端mac
+ip	请求ip,不用传此参数
+isd 是否下载 1 是  0 否
+
+配置文件
+ci	渠道id
+
+文件下载量
+ci	渠道id
+dn	磁盘序列号
+ma	客户端mac
+ip	请求ip,不用传此参数
+http://dif.pzqsb.com:8001/cloudy/pde.xhtml?ci=8&dn=fsdfsfs&ma=00-00-00-00-00
+http://192.168.1.207:8080/cloudy/pde.xhtml?ci=8&dn=fsdfsfs&ma=00-00-00-00-00
